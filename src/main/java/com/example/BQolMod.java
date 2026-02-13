@@ -5,48 +5,48 @@ import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.class_217;
+import net.minecraft.class_3222;
+import net.minecraft.class_2561;
+import net.minecraft.class_1268;
+import net.minecraft.class_1265;
+import net.minecraft.class_1472;
+import net.minecraft.class_2338;
+import net.minecraft.class_1937;
 
 public class BQolMod implements ModInitializer {
     @Override
     public void onInitialize() {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            if (world instanceof ServerWorld && player.isCreative() && ((ServerWorld) world).getPlayers().size() == 1) {
-                BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
-                UndoManager.pushAction(pos, world.getBlockState(pos), (ServerWorld) world);
+            if (world instanceof class_1937 && ((class_3222) player).isCreative() && ((class_1937) world).getPlayers().size() == 1) {
+                class_2338 pos = ((class_1472) hitResult).getBlockPos();
+                UndoManager.pushAction(pos, world.getBlockState(pos), (class_1937) world);
             }
-            return ActionResult.PASS;
+            return class_1268.PASS;
         });
 
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
-            if (world instanceof ServerWorld && player.isCreative() && ((ServerWorld) world).getPlayers().size() == 1) {
-                UndoManager.pushAction(pos, state, (ServerWorld) world);
+            if (world instanceof class_1937 && ((class_3222) player).isCreative() && ((class_1937) world).getPlayers().size() == 1) {
+                UndoManager.pushAction(pos, state, (class_1937) world);
             }
             return true;
         });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(
-                LiteralArgumentBuilder.<ServerCommandSource>literal("undo")
+                LiteralArgumentBuilder.<class_217>literal("undo")
                     .executes(context -> {
-                        ServerCommandSource source = context.getSource();
-                        ServerPlayerEntity player = source.getPlayer();
+                        class_217 source = context.getSource();
+                        class_3222 player = source.getPlayer();
                         if (player != null && player.isCreative() && player.getServerWorld().getPlayers().size() == 1) {
                             if (UndoManager.canUndo()) {
                                 UndoManager.undoLastAction();
-                                player.sendMessage(Text.of("Dernière action annulée !"));
+                                player.sendMessage(class_2561.of("Dernière action annulée !"));
                             } else {
-                                player.sendMessage(Text.of("Rien à annuler."));
+                                player.sendMessage(class_2561.of("Rien à annuler."));
                             }
                         } else {
-                            player.sendMessage(Text.of("Cette commande est uniquement disponible en mode créatif et en solo."));
+                            player.sendMessage(class_2561.of("Cette commande est uniquement disponible en mode créatif et en solo."));
                         }
                         return 1;
                     })
