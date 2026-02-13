@@ -9,7 +9,7 @@
   "environment": "client",
   "entrypoints": {
     "main": [ "fr.noloxo.bqol.BQolMod" ],
-    "client": [ "fr.noloxo.bqol.client.BQolClientMod" ]
+    "client": [ "fr.noloxoYT.bqol.client.BQolClientMod" ]
   },
   "mixins": [ "mixins.bqol.json" ]
 }
