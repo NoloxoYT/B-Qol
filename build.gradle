@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'fabric-loom' version '1.14.+'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabricmc.net/' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.21.1"
+    modImplementation "net.fabricmc:fabric-loader:0.15.3"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.143.4+26.1"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/fabric.mod.json")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/NoloxoYT/B-Qol')
+            credentials {
+                username = System.getenv('USERNAME') ?: 'placeholder'
+                password = System.getenv('TOKEN') ?: 'placeholder'
+            }
+        }
+    }
+}
