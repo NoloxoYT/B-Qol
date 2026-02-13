@@ -18,7 +18,7 @@ public class BQolMod implements ModInitializer {
     @Override
     public void onInitialize() {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            if (!world.isClient && player.isCreative() && world.getPlayers().size() == 1) {
+            if (world instanceof ServerWorld && player.isCreative() && ((ServerWorld) world).getPlayers().size() == 1) {
                 BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
                 UndoManager.pushAction(pos, world.getBlockState(pos), (ServerWorld) world);
             }
@@ -26,7 +26,7 @@ public class BQolMod implements ModInitializer {
         });
 
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
-            if (!world.isClient && player.isCreative() && world.getPlayers().size() == 1) {
+            if (world instanceof ServerWorld && player.isCreative() && ((ServerWorld) world).getPlayers().size() == 1) {
                 UndoManager.pushAction(pos, state, (ServerWorld) world);
             }
             return true;
@@ -41,12 +41,12 @@ public class BQolMod implements ModInitializer {
                         if (player != null && player.isCreative() && player.getServerWorld().getPlayers().size() == 1) {
                             if (UndoManager.canUndo()) {
                                 UndoManager.undoLastAction();
-                                player.sendMessage(Text.of("Dernière action annulée !"), false);
+                                player.sendMessage(Text.of("Dernière action annulée !"));
                             } else {
-                                player.sendMessage(Text.of("Rien à annuler."), false);
+                                player.sendMessage(Text.of("Rien à annuler."));
                             }
                         } else {
-                            player.sendMessage(Text.of("Cette commande est uniquement disponible en mode créatif et en solo."), false);
+                            player.sendMessage(Text.of("Cette commande est uniquement disponible en mode créatif et en solo."));
                         }
                         return 1;
                     })
