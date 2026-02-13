@@ -14,7 +14,6 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.15.3"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.141.3+1.21.11"
-
 }
 
 java {
@@ -22,9 +21,7 @@ java {
 }
 
 loom {
-    mixin {
-        defaultRefmapName = "mixins.bqol.refmap.json"
-    }
+    // Plus besoin de configurer les mixins ici
 }
 
 publishing {
