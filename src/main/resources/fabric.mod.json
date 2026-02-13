@@ -3,18 +3,13 @@
   "id": "bqol",
   "version": "1.0.0",
   "name": "B-Qol",
-  "description": "A Fabric mod for Minecraft Java Edition adding quality of life features like Ctrl+Z (undo) and Ctrl+N (notepad).",
-  "authors": ["Gabriel Cochet"],
+  "description": "A Fabric mod for quality of life features in Minecraft.",
+  "authors": [ "NoloxoYT" ],
   "license": "MIT",
   "environment": "client",
   "entrypoints": {
-    "main": ["fr.gabrielcochet.bqol.BQolMod"],
-    "client": ["fr.gabrielcochet.bqol.client.BQolClientMod"]
+    "main": [ "fr.noloxo.bqol.BQolMod" ],
+    "client": [ "fr.noloxo.bqol.client.BQolClientMod" ]
   },
-  "mixins": ["mixins.bqol.json"],
-  "depends": {
-    "fabricloader": ">=0.14.0",
-    "fabric-api": ">=0.86.0",
-    "minecraft": "1.20.4"
-  }
+  "mixins": [ "mixins.bqol.json" ]
 }
