@@ -1,9 +1,10 @@
 {
   "required": true,
-  "package": "fr.gabrielcochet.bqol.mixin",
+  "package": "fr.noloxo.bqol.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }
