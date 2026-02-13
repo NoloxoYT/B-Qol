@@ -22,7 +22,6 @@ java {
 
 loom {
     accessWidenerPath = file("src/main/resources/fabric.mod.json")
-    accessWidenerMappings = "intermediary"
 }
 
 publishing {
