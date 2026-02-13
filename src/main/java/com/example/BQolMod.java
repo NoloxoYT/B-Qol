@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -18,7 +19,7 @@ public class BQolMod implements ModInitializer {
     public void onInitialize() {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             if (!world.isClient && player.isCreative() && world.getPlayers().size() == 1) {
-                BlockPos pos = hitResult.getBlockPos();
+                BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
                 UndoManager.pushAction(pos, world.getBlockState(pos), (ServerWorld) world);
             }
             return ActionResult.PASS;
@@ -32,22 +33,24 @@ public class BQolMod implements ModInitializer {
         });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(com.mojang.brigadier.builder.LiteralArgumentBuilder.literal("undo")
-                .executes(context -> {
-                    ServerCommandSource source = context.getSource();
-                    ServerPlayerEntity player = source.getPlayer();
-                    if (player != null && player.isCreative() && player.getServerWorld().getPlayers().size() == 1) {
-                        if (UndoManager.canUndo()) {
-                            UndoManager.undoLastAction();
-                            player.sendMessage(Text.literal("Dernière action annulée !"), false);
+            dispatcher.register(
+                LiteralArgumentBuilder.<ServerCommandSource>literal("undo")
+                    .executes(context -> {
+                        ServerCommandSource source = context.getSource();
+                        ServerPlayerEntity player = source.getPlayer();
+                        if (player != null && player.isCreative() && player.getServerWorld().getPlayers().size() == 1) {
+                            if (UndoManager.canUndo()) {
+                                UndoManager.undoLastAction();
+                                player.sendMessage(Text.of("Dernière action annulée !"), false);
+                            } else {
+                                player.sendMessage(Text.of("Rien à annuler."), false);
+                            }
                         } else {
-                            player.sendMessage(Text.literal("Rien à annuler."), false);
+                            player.sendMessage(Text.of("Cette commande est uniquement disponible en mode créatif et en solo."), false);
                         }
-                    } else {
-                        player.sendMessage(Text.literal("Cette commande est uniquement disponible en mode créatif et en solo."), false);
-                    }
-                    return 1;
-                }));
+                        return 1;
+                    })
+            );
         });
     }
 }
