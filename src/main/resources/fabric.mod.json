@@ -1,15 +1,41 @@
 {
-  "schemaVersion": 1,
-  "id": "bqol",
-  "version": "1.0.0",
-  "name": "B-Qol",
-  "description": "A Fabric mod for quality of life features in Minecraft.",
-  "authors": [ "NoloxoYT" ],
-  "license": "MIT",
-  "environment": "client",
-  "entrypoints": {
-    "main": [ "fr.noloxo.bqol.BQolMod" ],
-    "client": [ "fr.noloxoYT.bqol.client.BQolClientMod" ]
-  },
-  "mixins": [ "mixins.bqol.json" ]
+	"schemaVersion": 1,
+	"id": "b-qol",
+	"version": "${version}",
+	"name": "B-Qol",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/b-qol/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.noloxo.bqol.BQol"
+		],
+		"client": [
+			"com.noloxo.bqol.BQolClient"
+		],
+		"fabric-datagen": [
+			"com.noloxo.bqol.BQolDataGenerator"
+		]
+	},
+	"mixins": [
+		"b-qol.mixins.json",
+		{
+			"config": "b-qol.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
 }
