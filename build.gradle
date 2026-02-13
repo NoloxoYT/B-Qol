@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21.1"
-    mappings loom.officialMojangMappings()  // <-- Utiliser official pour 1.21.11
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.15.3"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.143.4+26.1"
 }
@@ -21,7 +21,8 @@ java {
 }
 
 loom {
-    // Plus besoin de configurer les mixins ici
+    accessWidenerPath = file("src/main/resources/fabric.mod.json")
+    accessWidenerMappings = "intermediary"
 }
 
 publishing {
