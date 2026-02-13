@@ -1,4 +1,5 @@
 rootProject.name = 'B-Qol'
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
