@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21.1"
+    mappings loom.intermediaryMappings
     modImplementation "net.fabricmc:fabric-loader:0.15.3"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.143.4+26.1"
 }
