@@ -1,14 +1,14 @@
 package com.example;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.class_2248;
+import net.minecraft.class_1937;
+import net.minecraft.class_2338;
 import java.util.Stack;
 
 public class UndoManager {
     private static final Stack<UndoAction> undoStack = new Stack<>();
 
-    public static void pushAction(BlockPos pos, BlockState oldState, ServerWorld world) {
+    public static void pushAction(class_2338 pos, class_2248 oldState, class_1937 world) {
         undoStack.push(new UndoAction(pos, oldState, world));
     }
 
@@ -24,11 +24,11 @@ public class UndoManager {
     }
 
     private static class UndoAction {
-        private final BlockPos pos;
-        private final BlockState oldState;
-        private final ServerWorld world;
+        private final class_2338 pos;
+        private final class_2248 oldState;
+        private final class_1937 world;
 
-        public UndoAction(BlockPos pos, BlockState oldState, ServerWorld world) {
+        public UndoAction(class_2338 pos, class_2248 oldState, class_1937 world) {
             this.pos = pos;
             this.oldState = oldState;
             this.world = world;
